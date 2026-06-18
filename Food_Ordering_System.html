@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Ordering System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:20px;
+}
+
+table, th, td{
+    border:1px solid #ddd;
+}
+
+th{
+    background:#ff6b6b;
+    color:white;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    text-align:center;
+}
+
+input[type="number"]{
+    width:70px;
+    padding:5px;
+}
+
+button{
+    display:block;
+    margin:10px auto;
+    padding:12px 25px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#218838;
+}
+
+#bill{
+    margin-top:20px;
+    display:none;
+}
+
+.total{
+    font-size:22px;
+    font-weight:bold;
+    color:#e63946;
+    margin-top:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🍔 Food Ordering System</h1>
+
+<table>
+    <tr>
+        <th>Select</th>
+        <th>Item</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Pizza</td>
+        <td class="price">250</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Burger</td>
+        <td class="price">120</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Sandwich</td>
+        <td class="price">100</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Pasta</td>
+        <td class="price">180</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Cold Drink</td>
+        <td class="price">50</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+
+    <tr>
+        <td><input type="checkbox" class="food"></td>
+        <td>Coffee</td>
+        <td class="price">80</td>
+        <td><input type="number" min="1" value="1"></td>
+    </tr>
+</table>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<div id="bill">
+    <h2>🧾 Order Summary</h2>
+
+    <table id="billTable">
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </table>
+
+    <p class="total">Grand Total: ₹<span id="grandTotal">0</span></p>
+</div>
+
+</div>
+
+<script>
+function placeOrder(){
+
+    let rows = document.querySelectorAll("table tr");
+    let billTable = document.getElementById("billTable");
+
+    billTable.innerHTML = `
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    `;
+
+    let grandTotal = 0;
+
+    for(let i=1; i<rows.length; i++){
+
+        let checkbox = rows[i].querySelector("input[type='checkbox']");
+        let qtyInput = rows[i].querySelector("input[type='number']");
+
+        if(checkbox && checkbox.checked){
+
+            let item = rows[i].cells[1].innerText;
+            let price = parseInt(rows[i].cells[2].innerText);
+            let qty = parseInt(qtyInput.value);
+
+            let total = price * qty;
+            grandTotal += total;
+
+            let newRow = billTable.insertRow();
+
+            newRow.insertCell(0).innerText = item;
+            newRow.insertCell(1).innerText = qty;
+            newRow.insertCell(2).innerText = "₹" + price;
+            newRow.insertCell(3).innerText = "₹" + total;
+        }
+    }
+
+    document.getElementById("grandTotal").innerText = grandTotal;
+    document.getElementById("bill").style.display = "block";
+}
+</script>
+
+</body>
+</html>
