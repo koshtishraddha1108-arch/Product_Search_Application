@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Search Application</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container{
+    width: 500px;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px gray;
+}
+
+h2{
+    text-align: center;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+li{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <u><h2>Product Search</h2></u>
+
+    <input type="text" id="searchBox"
+           placeholder="Search Product..."
+           onkeyup="searchProduct()">
+
+    <ul id="productList"></ul>
+
+</div>
+
+<script>
+
+let products = [
+    "Laptop",
+    "Keyboard",
+    "Mouse",
+    "Monitor",
+    "Printer",
+    "Webcam",
+    "Scanner",
+    "Speaker",
+    "Microphone",
+    "Hard Disk"
+];
+
+function displayProducts(list){
+
+    let output = "";
+
+    for(let i=0; i<list.length; i++){
+        output += "<li>" + list[i] + "</li>";
+    }
+
+    document.getElementById("productList").innerHTML = output;
+}
+
+displayProducts(products);
+
+function searchProduct(){
+
+    let searchText =
+    document.getElementById("searchBox").value.toLowerCase();
+
+    let filteredProducts = products.filter(function(product){
+
+        return product.toLowerCase().includes(searchText);
+
+    });
+
+    displayProducts(filteredProducts);
+}
+
+</script>
+
+</body>
+</html>
