@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Quiz Application</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container{
+    width: 700px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px black;
+}
+
+h2{
+    text-align: center;
+}
+
+.question{
+    margin-bottom: 20px;
+}
+
+button{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#result{
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <u><h2>Online Quiz Application</h2></u>
+
+    <form id="quizForm">
+
+        <div class="question">
+            <p>1. HTML stands for?</p>
+            <input type="radio" name="q1" value="a"> Hyper Text Markup Language<br>
+            <input type="radio" name="q1" value="b"> High Text Machine Language<br>
+            <input type="radio" name="q1" value="c"> Home Tool Markup Language
+        </div>
+
+        <div class="question">
+            <p>2. Which language is used for styling web pages?</p>
+            <input type="radio" name="q2" value="a"> HTML<br>
+            <input type="radio" name="q2" value="b"> CSS<br>
+            <input type="radio" name="q2" value="c"> PHP
+        </div>
+
+        <div class="question">
+            <p>3. Which is a JavaScript keyword?</p>
+            <input type="radio" name="q3" value="a"> let<br>
+            <input type="radio" name="q3" value="b"> style<br>
+            <input type="radio" name="q3" value="c"> design
+        </div>
+
+        <div class="question">
+            <p>4. Which symbol is used for comments in JavaScript?</p>
+            <input type="radio" name="q4" value="a"> <!-- --> <br>
+            <input type="radio" name="q4" value="b"> // <br>
+            <input type="radio" name="q4" value="c"> ##
+        </div>
+
+        <div class="question">
+            <p>5. Which company developed JavaScript?</p>
+            <input type="radio" name="q5" value="a"> Microsoft<br>
+            <input type="radio" name="q5" value="b"> Netscape<br>
+            <input type="radio" name="q5" value="c"> Google
+        </div>
+
+       <center><button type="button" onclick="checkQuiz()">
+              Submit Quiz 
+        </button></center>
+
+    </form>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+function checkQuiz(){
+
+    let answers = {
+        q1: "a",
+        q2: "b",
+        q3: "a",
+        q4: "b",
+        q5: "b"
+    };
+
+    let correct = 0;
+    let wrong = 0;
+
+    for(let key in answers){
+
+        let selected =
+        document.querySelector('input[name="'+key+'"]:checked');
+
+        if(selected){
+
+            if(selected.value === answers[key]){
+                correct++;
+            }
+            else{
+                wrong++;
+            }
+
+        }else{
+            wrong++;
+        }
+    }
+
+    document.getElementById("result").innerHTML =
+    `
+    Correct Answers: ${correct} <br>
+    Wrong Answers: ${wrong} <br>
+    Final Score: ${correct} / 5
+    `;
+}
+</script>
+
+</body>
+</html>
